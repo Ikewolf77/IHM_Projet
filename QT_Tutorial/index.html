@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><title>IHM 2019 - Qt</title>
+    <style type="text/css">
+    body {
+        margin:40px auto;
+        max-width:800px;
+        line-height:1.6;
+        font-size:18px;
+        color:#444;
+        padding:0 10px
+     }
+     h1,h2,h3 {
+        line-height:1.2
+     }
+    </style>
+</head>
+<body alink="#ff0000" bgcolor="#ffffff" link="#0000ef" text="#000000" vlink="#52188c">
+<blockquote>
+  <center>
+  <hr width="100%">
+  </center>
+  <p></p>
+  <center>
+  <table cols="1" nosave="" bgcolor="#ffffcc" border="2" width="60%">
+    <tbody>
+    <tr nosave="">
+      <td nosave="">
+        <center><b><font size="+3">IHM</font></b>
+
+        <p><b><font size="+2">Using Qt to build a first GUI</font></b></p></center></td></tr></tbody></table></center><br>
+  <div align="right"><p>Andres Perez-Uribe<br />Hector Satizabal</p></div>
+  <hr width="100%">
+
+  <center>
+  <table nosave="" border="1" cols="2" width="80%">
+  <tbody><tr nosave="">
+  <td nosave="">
+  <center><img src="iwatch-SAP_GUI.jpg" height="288"><br>SAP GUI for the gold version Apple Watch ?<br> (from mindsetconsulting blog)</center>
+  </td>
+
+  <td>
+  <center><b>"A picture is worth a thousand words.<br>
+    An interface is worth a thousand pictures."
+  </b><p><b>Ben Shneiderman</b></p></center>
+  </td>
+  </tr>
+  </tbody>
+  </table>
+  </center>
+
+
+<p>The goal of this laboratory is to explore the use of Qt as a means to build Graphical User Interfaces while considering the fundamental principles of design, proposed by Don Norman.
+<br>&nbsp;
+
+</p><p><font size="+2">1. Hands on Qt</font>
+</p><p>
+Qt ("cute" or unofficially "cue-tee") is a cross-platform application framework for developing application software that can be run on various software and hardware platforms with little or no change in the codebase.
+<p>
+Qt uses standard C++ with extensions including signals and slots that simplifies handling of events, and this helps in development of both GUI and server applications which receive their own set of event information and should process them accordingly.
+<p>
+Qt comes with its own set of tools to ease cross-platform development. Qt Creator is a cross-platform IDE for C++ and QML. In addition to Qt Creator, Qt provides a handy makefile generation tool, <i>qmake</i>, a tool that automates the generation of Makefiles for development project across different platforms. Without qmake, one should write different makefiles for each platform, so it is a useful tool for transparent handling of differences in various platforms.
+<p>
+Because of simplicity, robustness, native performance, cross-platform compatibility and both commercial and open source licenses, many organizations in many parts of the world use Qt. These include but are not limited to European Space Agency, DreamWorks, Lucasfilm, Panasonic, Philips, Samsung, Siemens, Volvo, Walt Disney Animation Studios, Blizzard Entertainment, Electronic Arts.
+
+<p>From Wikipedia.
+<p>
+There are plenty of <a href="http://doc.qt.io/qt-5/qtexamplesandtutorials.html">Qt examples and tutorials</a> on the Qt website. You are invited to follow in detail one or several of them during the development of the proposed exercises of this course.
+<p>
+In order to complete this laboratory, you should download and install Qt <a href="https://www.qt.io/download">https://www.qt.io/download</a>. Select the open source version.</li>
+
+</p><p><font size="+2">2. A Notepad application</font>
+<p>
+The <a href="http://doc.qt.io/qt-5/qtwidgets-tutorials-notepad-example.html">Text Editor</a> application is a very basic, but at the same time complete tutorial that will let you learn about Qt tools and Qt programming. There is also a <a href="https://www.youtube.com/watch?v=I96uPDifZ1w">video</a> explaining with great detail every step about how to create a notepad application. Follow such tutorial and build a text editor having the following controls:
+</p>
+<ul>
+    <li>A menu item for accessing functions related to file management</li>
+    <ul>
+        <li>A menu subitem for opening files: "Open"</li>
+        <li>A menu subitem for saving files: "Save"</li>
+        <li>A menu subitem for saving files with an alternative name: "Save as"</li>
+        <li>A menu subitem to quit the application: "Quit"</li>
+    </ul>
+    <li>A menu item for accessing functions related to help</li>
+    <ul>
+        <li>A menu subitem showing information about how to use the program: "Help"</li>
+        <li>A menu subitem showing information about the developers: "About"</li>
+    </ul>
+    <li>Add shortcuts for each one of the aforementioned functionalities</li>
+    <ul>
+        <li>Open -> Alt + O</li>
+        <li>Save -> Alt + S</li>
+        <li>Save as -> Alt + Shift + S</li>
+        <li>Quit -> Alt + Q</li>
+        <li>Help -> Alt + H</li>
+        <li>About -> Alt + A</li>
+    </ul>
+</ul>
+
+<p>
+The following image shows an example of the interface you should program.
+</p>
+<center><img src="notepad.png" height="340"></center>
+
+
+</blockquote>
+<p></p><hr>
+October 2019
+</body></html>
