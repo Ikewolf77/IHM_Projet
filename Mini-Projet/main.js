@@ -67,8 +67,8 @@ function main () {
   })
 
   //Delete todo from todo list window
-  ipcMain.on('delete-todo', (event,todo) => {
-    const updatedTodos = todosData.deleteTodo(todo).todos
+  ipcMain.on('delete-todo', (event,id) => {
+    const updatedTodos = todosData.deleteTodo(id).todos
     mainWindow.send('todos',updatedTodos)
   })
 }

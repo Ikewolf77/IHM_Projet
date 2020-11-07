@@ -29,10 +29,10 @@ ipcRenderer.on('todos', (event,todos) => {
     // create html string
     const todoItems = todos.reduce((html, todo) =>{
         html += `<li class="todo-item">${todo.title}
-                    <button name="${todo.title}" type="button" class="btn btn-info">
+                    <button name="${todo.id}" type="button" class="btn btn-info">
                         Show or Edit
                     </button>
-                    <button name="${todo.title}" type="button" class="btn btn-danger">
+                    <button name="${todo.id}" type="button" class="btn btn-danger">
                         Delete
                     </button>
                 </li>`
@@ -49,11 +49,13 @@ ipcRenderer.on('todos', (event,todos) => {
           return;
         }
 
+        //check if button is delete and get todo title
         const isDelete = event.target.classList.contains('btn-danger')
-        const todoTitle = event.target.name
+        const todoId = event.target.name
 
+        //if button is delete, delete the todo, else open edit todo window
         if(isDelete){
-            ipcRenderer.send('delete-todo',todoTitle)
+            ipcRenderer.send('delete-todo',todoId)
         } else {
             ipcRenderer.send('edit-todo-window')
         }
@@ -74,6 +76,7 @@ function showElement(id){
     calendarDiv.style.display = "none"
     notesDiv.style.display = "none"
 
+    //will show a div based on what has been clicked
     switch(id){
         case 'reminders': 
             remindersDiv.style.display = "block";
