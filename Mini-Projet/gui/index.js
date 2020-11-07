@@ -61,16 +61,14 @@ ipcRenderer.on('todos', (event,todos) => {
 
 //browse windows
 
-let remindersDiv = document.getElementById('reminders')
-let calendarDiv = document.getElementById('calendar')
-let notesDiv = document.getElementById('notes')
-
 function showElement(id){
+
+    let remindersDiv = document.getElementById('reminders')
+    let calendarDiv = document.getElementById('calendar')
 
     //reset
     remindersDiv.style.display = "none"
     calendarDiv.style.display = "none"
-    notesDiv.style.display = "none"
 
     //will show a div based on what has been clicked
     switch(id){
@@ -80,10 +78,6 @@ function showElement(id){
 
         case 'calendar': 
             calendarDiv.style.display = "block"; 
-            break
-            
-        case 'notes': 
-            notesDiv.style.display = "block"
             break
     }
 }
@@ -99,15 +93,47 @@ document.getElementById('btn_calendar').addEventListener('click',() => {
     showElement('calendar')
 })
 
-document.getElementById('btn_notes').addEventListener('click',() => {
-    showElement('notes')
-})
-
 //calendar rendering
+
+var calendarEl = document.getElementById('calendar');
+var calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridMonth'
+});
+
 document.getElementById('btn_calendar').addEventListener('click', function() {
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'dayGridMonth'
-    });
     calendar.render();
 });
+
+//helper
+function createCalendarEvent(todo){
+    calendarEvent = {
+        id: todo.id,
+        title: todo.title,
+        start: todo.date,
+        end: todo.date,
+        allDay: false
+    }
+    return calendarEvent
+}
+
+ipcRenderer.on('set-calendar', (event,todos) => {
+    //setup calendar
+    for(let todo of todos){
+        calendar.addEvent(createCalendarEvent(todo))
+    }
+})
+
+ipcRenderer.on('add-calendar-event', (event,todo) => {
+    //add an event
+    calendar.addEvent(createCalendarEvent(todo))
+})
+
+
+ipcRenderer.on('remove-calendar-event', (event,todoId) => {
+    //remove an event
+    try {
+        calendar.getEventById(todoId).remove() //this throws an arror for some reason
+    } catch(e){
+        //do nothing
+    }
+})

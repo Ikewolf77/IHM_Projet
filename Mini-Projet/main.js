@@ -20,6 +20,7 @@ function main () {
   //initialize main window with todos
   mainWindow.once('show',() => {
     mainWindow.webContents.send('todos', todosData.todos)
+    mainWindow.webContents.send('set-calendar', todosData.todos)
   })
 
   //create add todo window
@@ -57,7 +58,6 @@ function main () {
       //send todo to new window
       editTodoWindow.once('show',() => {
         currentTodo = todosData.getTodo(todoId)
-        console.log(todoId)
         editTodoWindow.send('todo', currentTodo)
       })
 
@@ -70,14 +70,28 @@ function main () {
 
   //add todo from add todo window
   ipcMain.on('add-todo', (event,todo) => {
+    //update calendar
+    mainWindow.send('add-calendar-event',todo)
+
+    //update database and reminders
     const updatedTodos = todosData.addTodo(todo).todos
     mainWindow.send('todos',updatedTodos)
   })
 
   //Delete todo from todo list window
   ipcMain.on('delete-todo', (event,todoId) => {
+    //update calendar
+    mainWindow.send('remove-calendar-event',todoId)
+
+    //update database and reminders
     const updatedTodos = todosData.deleteTodo(todoId).todos
     mainWindow.send('todos',updatedTodos)
+  })
+
+  //close add window
+  ipcMain.on('close-add-window', () => {
+    addTodoWindow.close()
+    addTodoWindow = null
   })
 }
 

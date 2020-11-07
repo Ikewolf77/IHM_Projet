@@ -10,8 +10,9 @@ document.getElementById('todoForm').addEventListener('submit', (event) => {
     //input of the form
     const title = event.target[0]
     const description = event.target[1]
+    const date = event.target[2]
 
-    const todo = new Todo(title.value,description.value,'nothing')
+    const todo = new Todo(title.value, description.value, date.value,'image')
 
     //send todo to main process
     console.log(todo)
@@ -20,4 +21,7 @@ document.getElementById('todoForm').addEventListener('submit', (event) => {
     //reset input
     title.value=''
     description.value=''
+
+    //close window
+    ipcRenderer.send('close-add-window')
 })
