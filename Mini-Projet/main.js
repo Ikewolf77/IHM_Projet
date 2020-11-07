@@ -15,6 +15,7 @@ function main () {
     file: './gui/index.html'
   })
   let addTodoWindow
+  let editTodoWindow
 
   //initialize main window with todos
   mainWindow.once('show',() => {
@@ -27,8 +28,8 @@ function main () {
     if(!addTodoWindow) {
       addTodoWindow = new Window({
         file: './gui/add.html',
-        width: 400,
-        height: 400,
+        width: 1280,
+        height: 720,
         //close the main window
         parent: mainWindow
       })
@@ -36,6 +37,25 @@ function main () {
       //cleanup
       addTodoWindow.on('closed', () => {
         addTodoWindow = null
+      })
+    }
+  })
+
+  //create add todo window
+  ipcMain.on('edit-todo-window',() => {
+    //check if window does not already exist
+    if(!editTodoWindow) {
+      editTodoWindow = new Window({
+        file: './gui/edit.html',
+        width: 1280,
+        height: 720,
+        //close the main window
+        parent: mainWindow
+      })
+
+      //cleanup
+      editTodoWindow.on('closed', () => {
+        editTodoWindow = null
       })
     }
   })

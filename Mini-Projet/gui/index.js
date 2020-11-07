@@ -28,7 +28,14 @@ ipcRenderer.on('todos', (event,todos) => {
 
     // create html string
     const todoItems = todos.reduce((html, todo) =>{
-        html += `<li class="todo-item">${todo}</li>`
+        html += `<li class="todo-item">${todo.title}
+                    <button name="${todo.title}" type="button" class="btn btn-info">
+                        Show or Edit
+                    </button>
+                    <button name="${todo.title}" type="button" class="btn btn-danger">
+                        Delete
+                    </button>
+                </li>`
         return html
     },'')
 
@@ -36,8 +43,21 @@ ipcRenderer.on('todos', (event,todos) => {
     todoList.innerHTML += todoItems
 
     // add click handlers to delete the clicked todo
-    todoList.querySelectorAll('.todo-item').forEach(item => {
-        item.addEventListener('click', deleteTodo)
+    todoList.addEventListener('click', (event) => {
+        const isButton = event.target.nodeName === 'BUTTON';
+        if (!isButton) {
+          return;
+        }
+
+        const isDelete = event.target.classList.contains('btn-danger')
+        const todoTitle = event.target.name
+
+        if(isDelete){
+            ipcRenderer.send('delete-todo',todoTitle)
+        } else {
+            ipcRenderer.send('edit-todo-window')
+        }
+      
     })
 })
 
@@ -53,25 +73,18 @@ function showElement(id){
     remindersDiv.style.display = "none"
     calendarDiv.style.display = "none"
     notesDiv.style.display = "none"
-    /*
-    documents.getElementById("label_reminders").className = "btn btn-secondary"
-    documents.getElementById("label_calendar").className = "btn btn-secondary"
-    documents.getElementById("label_notes").className = "btn btn-secondary"*/
 
     switch(id){
         case 'reminders': 
             remindersDiv.style.display = "block";
-            //document.getElementById("label_reminders").classList.add('active')
             break
 
         case 'calendar': 
             calendarDiv.style.display = "block"; 
-            //document.getElementById("label_calendar").classList.add('active')
             break
             
         case 'notes': 
             notesDiv.style.display = "block"
-            //document.getElementById("label_notes").classList.add('active')
             break
     }
 }
@@ -90,3 +103,12 @@ document.getElementById('btn_calendar').addEventListener('click',() => {
 document.getElementById('btn_notes').addEventListener('click',() => {
     showElement('notes')
 })
+
+//calendar rendering
+document.getElementById('btn_calendar').addEventListener('click', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth'
+    });
+    calendar.render();
+});

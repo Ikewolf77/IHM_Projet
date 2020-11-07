@@ -1,17 +1,23 @@
 
 /* eslint-disable no-undef */
 const { ipcRenderer } = require('electron');
+const Todo = require('../src/todo');
 
 document.getElementById('todoForm').addEventListener('submit', (event) => {
     //prevent default refresh functionnality of forms
     event.preventDefault()
 
     //input of the form
-    const input = event.target[0]
+    const title = event.target[0]
+    const description = event.target[1]
+
+    const todo = new Todo(title.value,description.value,'nothing')
 
     //send todo to main process
-    ipcRenderer.send('add-todo',input.value)
+    console.log(todo)
+    ipcRenderer.send('add-todo',todo)
 
     //reset input
-    input.value=''
+    title.value=''
+    description.value=''
 })
