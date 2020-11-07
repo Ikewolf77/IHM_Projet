@@ -97,7 +97,8 @@ document.getElementById('btn_calendar').addEventListener('click',() => {
 
 var calendarEl = document.getElementById('calendar');
 var calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'dayGridMonth'
+    initialView: 'dayGridMonth',
+    displayEventTime: false
 });
 
 document.getElementById('btn_calendar').addEventListener('click', function() {
@@ -111,7 +112,8 @@ function createCalendarEvent(todo){
         title: todo.title,
         start: todo.date,
         end: todo.date,
-        allDay: false
+        allDay: false,
+        eventDisplay: 'block'
     }
     return calendarEvent
 }
