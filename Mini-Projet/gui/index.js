@@ -9,10 +9,6 @@
 /* eslint-disable no-undef */
 const { ipcRenderer } = require('electron');
 
-const deleteTodo = (e) => {
-    ipcRenderer.send('delete-todo', e.target.textContent)
-}
-
 // open Add todo window button
 document.getElementById('createTodoBtn').addEventListener('click',() => {
     ipcRenderer.send('add-todo-window')
@@ -57,7 +53,7 @@ ipcRenderer.on('todos', (event,todos) => {
         if(isDelete){
             ipcRenderer.send('delete-todo',todoId)
         } else {
-            ipcRenderer.send('edit-todo-window')
+            ipcRenderer.send('edit-todo-window',todoId)
         }
       
     })

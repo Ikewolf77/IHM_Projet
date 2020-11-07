@@ -38,11 +38,12 @@ function main () {
       addTodoWindow.on('closed', () => {
         addTodoWindow = null
       })
+
     }
   })
 
   //create add todo window
-  ipcMain.on('edit-todo-window',() => {
+  ipcMain.on('edit-todo-window',(event, todoId) => {
     //check if window does not already exist
     if(!editTodoWindow) {
       editTodoWindow = new Window({
@@ -51,6 +52,13 @@ function main () {
         height: 720,
         //close the main window
         parent: mainWindow
+      })
+
+      //send todo to new window
+      editTodoWindow.once('show',() => {
+        currentTodo = todosData.getTodo(todoId)
+        console.log(todoId)
+        editTodoWindow.send('todo', currentTodo)
       })
 
       //cleanup
@@ -67,8 +75,8 @@ function main () {
   })
 
   //Delete todo from todo list window
-  ipcMain.on('delete-todo', (event,id) => {
-    const updatedTodos = todosData.deleteTodo(id).todos
+  ipcMain.on('delete-todo', (event,todoId) => {
+    const updatedTodos = todosData.deleteTodo(todoId).todos
     mainWindow.send('todos',updatedTodos)
   })
 }

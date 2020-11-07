@@ -27,6 +27,10 @@ class DataStore extends Store {
         return this
     }
 
+    getTodo(id){
+        return this.todos.find(t => t.id === id)
+    }
+
     addTodo(todo){
         //merge the existing todos with the new todo
         this.todos = [...this.todos, todo]
