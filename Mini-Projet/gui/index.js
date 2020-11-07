@@ -40,3 +40,53 @@ ipcRenderer.on('todos', (event,todos) => {
         item.addEventListener('click', deleteTodo)
     })
 })
+
+//browse windows
+
+let remindersDiv = document.getElementById('reminders')
+let calendarDiv = document.getElementById('calendar')
+let notesDiv = document.getElementById('notes')
+
+function showElement(id){
+
+    //reset
+    remindersDiv.style.display = "none"
+    calendarDiv.style.display = "none"
+    notesDiv.style.display = "none"
+    /*
+    documents.getElementById("label_reminders").className = "btn btn-secondary"
+    documents.getElementById("label_calendar").className = "btn btn-secondary"
+    documents.getElementById("label_notes").className = "btn btn-secondary"*/
+
+    switch(id){
+        case 'reminders': 
+            remindersDiv.style.display = "block";
+            //document.getElementById("label_reminders").classList.add('active')
+            break
+
+        case 'calendar': 
+            calendarDiv.style.display = "block"; 
+            //document.getElementById("label_calendar").classList.add('active')
+            break
+            
+        case 'notes': 
+            notesDiv.style.display = "block"
+            //document.getElementById("label_notes").classList.add('active')
+            break
+    }
+}
+
+//first loading
+showElement('reminders')
+
+document.getElementById('btn_reminders').addEventListener('click',() => {
+    showElement('reminders')
+})
+
+document.getElementById('btn_calendar').addEventListener('click',() => {
+    showElement('calendar')
+})
+
+document.getElementById('btn_notes').addEventListener('click',() => {
+    showElement('notes')
+})
