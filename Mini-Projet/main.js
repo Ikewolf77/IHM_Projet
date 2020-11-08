@@ -93,6 +93,13 @@ function main () {
     addTodoWindow.close()
     addTodoWindow = null
   })
+
+  //close add window
+  ipcMain.on('close-edit-window', () => {
+    editTodoWindow.close()
+    editTodoWindow = null
+  })
+
 }
 
 app.on('ready',main)

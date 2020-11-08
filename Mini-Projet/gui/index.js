@@ -14,32 +14,76 @@ document.getElementById('createTodoBtn').addEventListener('click',() => {
     ipcRenderer.send('add-todo-window')
 })
 
+//helper
+function addTodoToHtml(todoList, todo){
+    todoList.innerHTML += `<li class="todo-item">${todo.image + " " + todo.title}
+                                <button name="${todo.id}" type="button" class="btn btn-info">
+                                    Show or Edit
+                                </button>
+                                <button name="${todo.id}" type="button" class="btn btn-danger">
+                                    Delete
+                                </button>
+                            </li>`
+    return todoList
+}
+
 // on receive todos
 ipcRenderer.on('todos', (event,todos) => {
 
     // get the todoList ul
-    const todoList = document.getElementById('todoList')
+    let todayList = document.getElementById('todayList')
+    let tomorrowList = document.getElementById('tomorrowList')
+    todayList.innerHTML = ``
+    tomorrowList.innerHTML = ``
 
-    todoList.innerHTML = ``
+    //setup dates
+    const today = (new Date()).toISOString().split('T')[0]
+    let tomorrow = new Date()
+    tomorrow.setDate(tomorrow.getDate() + 1)
+    tomorrow = tomorrow.toISOString().split('T')[0]
 
-    // create html string
-    const todoItems = todos.reduce((html, todo) =>{
-        html += `<li class="todo-item">${todo.title}
-                    <button name="${todo.id}" type="button" class="btn btn-info">
-                        Show or Edit
-                    </button>
-                    <button name="${todo.id}" type="button" class="btn btn-danger">
-                        Delete
-                    </button>
-                </li>`
-        return html
-    },'')
+    //add html lists
+    for(let todo of todos){
+        if(todo.date === today){
+            todayList = addTodoToHtml(todayList,todo)
+        } else if(todo.date === tomorrow){
+            tomorrowList = addTodoToHtml(tomorrowList,todo)
+        }
+    }
 
-    // set list html to the todo items
-    todoList.innerHTML += todoItems
+    //add message if empty lists
+    if(!todayList.innerHTML){
+        todayList.innerHTML += `You have nothing for today!`
+    }
+
+    if(!tomorrowList.innerHTML){
+        tomorrowList.innerHTML += `You have nothing for tomorrow!`
+    }
+
+    //TODO : remove copy paste
 
     // add click handlers to delete the clicked todo
-    todoList.addEventListener('click', (event) => {
+    todayList.addEventListener('click', (event) => {
+        const isButton = event.target.nodeName === 'BUTTON';
+        if (!isButton) {
+          return;
+        }
+
+        //check if button is delete and get todo title
+        const isDelete = event.target.classList.contains('btn-danger')
+        const todoId = event.target.name
+
+        //if button is delete, delete the todo, else open edit todo window
+        if(isDelete){
+            ipcRenderer.send('delete-todo',todoId)
+        } else {
+            ipcRenderer.send('edit-todo-window',todoId)
+        }
+      
+    })
+
+    // add click handlers to delete the clicked todo
+    tomorrowList.addEventListener('click', (event) => {
         const isButton = event.target.nodeName === 'BUTTON';
         if (!isButton) {
           return;
@@ -98,7 +142,11 @@ document.getElementById('btn_calendar').addEventListener('click',() => {
 var calendarEl = document.getElementById('calendar');
 var calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
-    displayEventTime: false
+    displayEventTime: false,
+
+    eventClick: function(info) {
+        ipcRenderer.send('edit-todo-window',info.event.id);
+    }
 });
 
 document.getElementById('btn_calendar').addEventListener('click', function() {
@@ -112,8 +160,7 @@ function createCalendarEvent(todo){
         title: todo.title,
         start: todo.date,
         end: todo.date,
-        allDay: false,
-        eventDisplay: 'block'
+        allDay: false
     }
     return calendarEvent
 }
