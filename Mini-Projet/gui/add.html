@@ -15,17 +15,19 @@
 <body>
     <div class="container">
         <form id="todoForm">
-            <div class="form-group">
+            <div class="form-group my-5">
                 <label class="form-label" for="add-input-title">Title</label>
                 <input class="form-control" type="text" name="add-input-title" placeholder="Title" required>
 
                 <label class="form-label" for="add-input-description">Description</label>
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Description" required></textarea>
 
-                <label class="form-label" for="add-input-date">When</label>
-                <input type="date" id="date" name="date" required>
+                <div class="mt-2">
+                    <label class="form-label" for="add-input-date">When</label>
+                    <input class="date" type="date" id="date" name="date" required>
+                </div>
 
-                <div id="emoji">😎</div>
+                <div id="emoji" class="my-1">😎</div>
                 <button id="emoji-button" type="button">Click here to select an emoji</button>
                 <emoji-picker id="emoji-picker" style="display:none"></emoji-picker>
             </div>

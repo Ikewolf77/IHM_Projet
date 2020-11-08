@@ -5,7 +5,7 @@ body {
     background-size: cover;
 }
 
-.todo-item {
+.todo-item, .description {
     font-size: xx-large;
 }
 
@@ -13,6 +13,10 @@ body {
     font-size: large;
 }
 
-.description {
-    font-size: xx-large;
+.form-group {
+    font-size: x-large;
+}
+
+.date {
+    font-size: medium;
 }
