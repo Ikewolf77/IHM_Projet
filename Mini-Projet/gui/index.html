@@ -14,29 +14,43 @@
     <link href='../fullcalendar/lib/main.css' rel='stylesheet' />
     <script src='../fullcalendar/lib/main.js'></script>
 
+    <!-- custom css -->
+    <link href='./custom.css' rel='stylesheet' />
   </head>
   <body>
 
     <div class="container">
-      <h1>Remind-me</h1>
-      <!-- navigation -->
-      <div class="btn-group btn-group-toggle" data-toggle="buttons">
-        <label class="btn btn-secondary" id="label_reminders">
-          <input type="radio" name="options" id="btn_reminders" checked> Reminders
-        </label>
-        <label class="btn btn-secondary" id="label_calendar">
-          <input type="radio" name="options" id="btn_calendar"> Calendar
-        </label>
-      </div>
-      <button id="createTodoBtn" type="button" class="btn btn-success">Create a new Todo</button>
+      <div class="px-5">
 
-      <div id="reminders">
-          <div>
-              <h1>Today</h1>
-              <ul id="todayList"></ul>
-              <h1>Tomorrow</h1>
-              <ul id="tomorrowList"></ul>
+        <div class="row justify-content-center py-4">
+          <h1>𝓡𝓮𝓶𝓲𝓷𝓭-𝓶𝓮</h1>
+        </div>
+
+        <!-- navigation -->
+        <div class="row justify-content-between mx-5 p-5">
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-secondary" id="label_reminders">
+              <input type="radio" name="options" id="btn_reminders" checked> Show Reminders
+            </label>
+            <label class="btn btn-secondary" id="label_calendar">
+              <input type="radio" name="options" id="btn_calendar"> Show Calendar
+            </label>
           </div>
+          <button id="createTodoBtn" type="button" class="btn btn-success">Create a new Todo</button>
+        </div>
+
+        <!-- reminders -->
+        <div class="row">
+          <div id="reminders">
+              <div>
+                  <h1>Today</h1>
+                  <ul id="todayList" class="py-3"></ul>
+                  <h1>Tomorrow</h1>
+                  <ul id="tomorrowList" class="py-3"></ul>
+              </div>
+          </div>
+        </div>
+
       </div>
 
       <div id="calendar"></div>

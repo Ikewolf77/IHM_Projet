@@ -8,7 +8,7 @@ ipcRenderer.on('todo', (event,todo) => {
     document.getElementById('emoji').innerHTML = `${todo.image}`
     document.getElementById('title').innerHTML = `${todo.title}`
     document.getElementById('description').innerHTML = `${todo.description}`
-    document.getElementById('date').innerHTML = `${todo.date}`
+    document.getElementById('date').innerHTML = `To do on ${todo.date}`
 })
 
 //quit button

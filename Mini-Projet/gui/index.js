@@ -16,9 +16,9 @@ document.getElementById('createTodoBtn').addEventListener('click',() => {
 
 //helper
 function addTodoToHtml(todoList, todo){
-    todoList.innerHTML += `<li class="todo-item">${todo.image + " " + todo.title}
+    todoList.innerHTML += `<li class="todo-item my-1">${todo.image + " " + todo.title}
                                 <button name="${todo.id}" type="button" class="btn btn-info">
-                                    Show or Edit
+                                    Show
                                 </button>
                                 <button name="${todo.id}" type="button" class="btn btn-danger">
                                     Delete
@@ -53,11 +53,11 @@ ipcRenderer.on('todos', (event,todos) => {
 
     //add message if empty lists
     if(!todayList.innerHTML){
-        todayList.innerHTML += `You have nothing for today!`
+        todayList.innerHTML += `<div class="todo-item">You have nothing for today!</div>`
     }
 
     if(!tomorrowList.innerHTML){
-        tomorrowList.innerHTML += `You have nothing for tomorrow!`
+        tomorrowList.innerHTML += `<div class="todo-item">You have nothing for tomorrow!</div>`
     }
 
     //TODO : remove copy paste
