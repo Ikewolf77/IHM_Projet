@@ -60,6 +60,11 @@ ipcRenderer.on('todos', (event,todos) => {
         tomorrowList.innerHTML += `<div class="todo-item">You have nothing for tomorrow!</div>`
     }
 
+})
+
+//set listenenrs
+
+ipcRenderer.on('set-lists', () => {
     //TODO : remove copy paste
 
     // add click handlers to delete the clicked todo

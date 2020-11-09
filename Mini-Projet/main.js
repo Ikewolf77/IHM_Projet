@@ -21,6 +21,7 @@ function main () {
   mainWindow.once('show',() => {
     mainWindow.webContents.send('todos', todosData.todos)
     mainWindow.webContents.send('set-calendar', todosData.todos)
+    mainWindow.webContents.send('set-lists')
   })
 
   //create add todo window
