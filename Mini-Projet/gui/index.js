@@ -75,7 +75,9 @@ ipcRenderer.on('todos', (event,todos) => {
 
         //if button is delete, delete the todo, else open edit todo window
         if(isDelete){
-            ipcRenderer.send('delete-todo',todoId)
+            if(confirm('Do you really want to delete this todo?')){
+                ipcRenderer.send('delete-todo',todoId)
+            }
         } else {
             ipcRenderer.send('edit-todo-window',todoId)
         }
@@ -95,7 +97,9 @@ ipcRenderer.on('todos', (event,todos) => {
 
         //if button is delete, delete the todo, else open edit todo window
         if(isDelete){
-            ipcRenderer.send('delete-todo',todoId)
+            if(confirm('Do you really want to delete this todo?')){
+                ipcRenderer.send('delete-todo',todoId)
+            }
         } else {
             ipcRenderer.send('edit-todo-window',todoId)
         }
